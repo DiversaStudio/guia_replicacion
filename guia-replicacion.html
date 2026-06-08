@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Replicación · Dashboard de Curso · Diversa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --agua: #6182d9;
+  --madera: #8f8f78;
+  --hongo: #e0dedb;
+  --cielo: #f0f0f0;
+  --negro: #1a1a18;
+  --bg: #f5f2ec;
+  --surface: #ffffff;
+  --muted: #7a7872;
+  --border: #d0cdc7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--negro);
+  min-height: 100vh;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* ─── Header ─── */
+header {
+  background: var(--negro);
+  padding: 18px 48px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo { height: 26px; opacity: 0.88; display: block; }
+.header-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--bg);
+  letter-spacing: -0.01em;
+}
+.header-tagline {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #7a7870;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Intro band ─── */
+.lec-intro-band {
+  background: var(--surface);
+  border-bottom: 1px solid rgba(28,26,23,0.08);
+  padding: 64px 8% 52px;
+}
+.lec-intro-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(28,26,23,0.38);
+  display: block;
+  margin-bottom: 14px;
+}
+.lec-intro-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(30px, 3.2vw, 50px);
+  font-style: italic;
+  color: var(--negro);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.015em;
+}
+.lec-intro-desc {
+  font-size: 17px;
+  color: rgba(28,26,23,0.55);
+  line-height: 1.75;
+  max-width: 640px;
+}
+
+/* outcome chips under intro */
+.intro-outcomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+.intro-outcome {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--negro);
+  background: var(--cielo);
+  border: 0.5px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 15px;
+}
+.intro-outcome::before { content: "✓ "; color: var(--agua); }
+
+/* ─── Sections ─── */
+.guia-section {
+  padding: 56px 8% 68px;
+  border-bottom: 1px solid rgba(28,26,23,0.08);
+}
+.guia-section--1 { background: var(--cielo); }
+.guia-section--2 { background: var(--hongo); }
+.guia-section--3 { background: var(--negro); }
+.guia-section--light { background: var(--surface); }
+
+.guia-section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 14px;
+  color: var(--agua);
+}
+.guia-section--2 .guia-section-tag { color: var(--madera); }
+.guia-section--3 .guia-section-tag { color: var(--agua); }
+
+.guia-section-heading {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(24px, 2.4vw, 36px);
+  font-style: italic;
+  color: var(--negro);
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.guia-section--3 .guia-section-heading { color: var(--bg); }
+.guia-section-lead {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 34px;
+}
+.guia-section--3 .guia-section-lead { color: rgba(245,242,236,0.6); }
+
+/* Prerequisitos */
+.guia-prereqs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.guia-prereq {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 7px;
+  padding: 14px 16px;
+}
+.guia-prereq-icon { font-size: 18px; line-height: 1; margin-top: 2px; flex-shrink: 0; color: var(--agua); }
+.guia-prereq-text { font-size: 15px; color: var(--negro); line-height: 1.5; }
+.guia-prereq-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* Pasos */
+.guia-steps { display: flex; flex-direction: column; }
+.guia-step {
+  display: flex;
+  gap: 28px;
+  padding: 26px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.guia-step:last-child { border-bottom: none; }
+.guia-step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--agua);
+  min-width: 36px;
+  line-height: 1;
+  padding-top: 4px;
+  opacity: 0.55;
+}
+.guia-step:nth-child(even) .guia-step-num { color: var(--madera); }
+.guia-step-body { flex: 1; }
+.guia-step-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-style: italic;
+  color: var(--negro);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.guia-step-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+.guia-step-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.guia-step-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--hongo);
+  color: var(--muted);
+}
+
+/* Consejo / nota */
+.guia-tip {
+  display: flex;
+  gap: 12px;
+  background: rgba(97,130,217,0.07);
+  border-left: 2px solid var(--agua);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #45453f;
+}
+.guia-tip-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--agua);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+/* Prompt colapsable */
+.step-prompt-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .06em;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 14px;
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s;
+}
+.step-prompt-toggle:hover { border-color: var(--negro); color: var(--negro); }
+.step-prompt-toggle.open { border-color: var(--agua); color: var(--agua); }
+.step-prompt-body {
+  display: none;
+  margin-top: 10px;
+  background: var(--cielo);
+  border-radius: 6px;
+  border-left: 2px solid var(--agua);
+  padding: 16px 18px;
+}
+.step-prompt-body.visible { display: block; }
+.step-prompt-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--negro);
+  margin-bottom: 12px;
+}
+
+/* copy button */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--negro);
+  color: var(--bg);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background .15s;
+}
+.copy-btn:hover { background: var(--agua); }
+.copy-btn.copied { background: var(--madera); }
+.copy-icon { font-size: 15px; }
+
+/* FAQ / troubleshooting */
+.faq-list { display: flex; flex-direction: column; max-width: 820px; }
+.faq-item { border-bottom: 0.5px solid var(--border); }
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.faq-q-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--negro);
+}
+.faq-arrow { font-family: 'DM Mono', monospace; color: var(--agua); transition: transform .2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(90deg); }
+.faq-a {
+  display: none;
+  padding: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 720px;
+}
+.faq-item.open .faq-a { display: block; }
+.faq-a code {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  background: var(--cielo);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--negro);
+}
+
+/* closing CTA dark */
+.guia-section--3 .step-prompt-body {
+  background: rgba(245,242,236,0.05);
+  border-left-color: var(--agua);
+}
+.guia-section--3 .step-prompt-text { color: rgba(245,242,236,0.78); }
+.guia-section--3 .copy-btn {
+  background: rgba(245,242,236,0.07);
+  color: rgba(245,242,236,0.8);
+  border: 0.5px solid rgba(245,242,236,0.15);
+}
+.guia-section--3 .copy-btn:hover { background: var(--agua); color: var(--bg); border-color: transparent; }
+.guia-section--3 .copy-btn.copied { background: var(--madera); color: var(--bg); border-color: transparent; }
+.guia-section--3 .step-prompt-toggle { border-color: rgba(245,242,236,0.2); color: rgba(245,242,236,0.6); }
+.guia-section--3 .step-prompt-toggle:hover { border-color: var(--bg); color: var(--bg); }
+
+.share-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  max-width: 820px;
+}
+.share-card {
+  background: rgba(245,242,236,0.05);
+  border: 0.5px solid rgba(245,242,236,0.12);
+  border-radius: 8px;
+  padding: 20px;
+}
+.share-card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--agua);
+  margin-bottom: 10px;
+}
+.share-card-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--bg);
+  margin-bottom: 8px;
+}
+.share-card-desc { font-size: 14px; line-height: 1.6; color: rgba(245,242,236,0.6); }
+
+/* footer */
+footer {
+  text-align: center;
+  padding: 30px 48px;
+  border-top: 0.5px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: #bbb8b2;
+}
+
+@media (max-width: 720px) {
+  header { padding: 14px 20px; }
+  .header-tagline { display: none; }
+  .guia-section, .lec-intro-band { padding-left: 6%; padding-right: 6%; }
+  .guia-prereqs { grid-template-columns: 1fr; }
+  .guia-step { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="__LOGO_DATA_URI__" class="header-logo" alt="Diversa">
+  <div class="header-title">Guía de Replicación</div>
+  <div class="header-tagline">Futuros Más Humanos</div>
+</header>
+
+<!-- INTRO -->
+<div class="lec-intro-band">
+  <span class="lec-intro-label">Guía de Replicación · Paso a paso</span>
+  <h2 class="lec-intro-title">Crea tu propio dashboard de curso con IA</h2>
+  <p class="lec-intro-desc">Una guía completa para construir un dashboard interactivo de tu materia —semanas, lecturas, actividades y recursos— usando herramientas de inteligencia artificial. No necesitas saber programar: la IA escribe todo el código a partir de tus instrucciones, y el resultado es un solo archivo HTML que puedes compartir como cualquier link.</p>
+  <div class="intro-outcomes">
+    <span class="intro-outcome">Sin programar</span>
+    <span class="intro-outcome">Un solo archivo HTML</span>
+    <span class="intro-outcome">Se comparte como un link</span>
+    <span class="intro-outcome">Gratis con tu cuenta Google</span>
+    <span class="intro-outcome">Listo en una tarde</span>
+  </div>
+</div>
+
+<!-- ANTES DE EMPEZAR -->
+<div class="guia-section guia-section--1">
+  <span class="guia-section-tag">Antes de empezar</span>
+  <h3 class="guia-section-heading">Lo que necesitas tener a mano</h3>
+  <p class="guia-section-lead">Nada de esto es técnico. Si das clases y tienes una cuenta de correo institucional o de Google, ya tienes casi todo.</p>
+  <div class="guia-prereqs">
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">Cuenta de Google</div>
+        <div class="guia-prereq-sub">Para usar Gemini, NotebookLM y Drive — funcionan con cualquier cuenta gratuita</div>
+      </div>
+    </div>
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">El programa o syllabus del curso</div>
+        <div class="guia-prereq-sub">Word, PDF o Google Doc — aunque esté incompleto o desordenado</div>
+      </div>
+    </div>
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">Un navegador web</div>
+        <div class="guia-prereq-sub">Chrome, Edge, Firefox o Safari — el dashboard se abre con doble clic</div>
+      </div>
+    </div>
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">Una o dos horas de tiempo</div>
+        <div class="guia-prereq-sub">La primera vez. Las actualizaciones después toman minutos</div>
+      </div>
+    </div>
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">No necesitas saber programar</div>
+        <div class="guia-prereq-sub">La IA genera todo el código; tú solo revisas y pides ajustes en lenguaje normal</div>
+      </div>
+    </div>
+    <div class="guia-prereq">
+      <div class="guia-prereq-icon">◉</div>
+      <div>
+        <div class="guia-prereq-text">Ganas de experimentar</div>
+        <div class="guia-prereq-sub">Si algo sale raro, le pides a la IA que lo corrija. Nada se rompe de forma permanente</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PASOS -->
+<div class="guia-section guia-section--2">
+  <span class="guia-section-tag">El proceso · 6 pasos</span>
+  <h3 class="guia-section-heading">De tu syllabus a un dashboard publicado</h3>
+  <p class="guia-section-lead">Sigue los pasos en orden. Cada uno tiene un prompt listo para copiar y pegar — solo reemplaza lo que está entre corchetes con la información de tu curso.</p>
+  <div class="guia-steps">
+
+    <div class="guia-step">
+      <div class="guia-step-num">01</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Junta el contenido de tu curso</div>
+        <p class="guia-step-desc">Reúne en un solo documento todo lo que tienes: temas por semana, lecturas, actividades y recursos. No importa si está incompleto o desordenado — la IA te ayuda a completar los vacíos. Un Google Doc con lo que ya tienes es suficiente para empezar.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">Google Docs</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Consejo</span><span>Si tu material está en varios archivos, no te preocupes por unirlos perfectamente. Pega todo seguido en un solo documento; la IA se encarga de ordenarlo en el siguiente paso.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Tengo el material de mi materia "[nombre del curso]". Puede estar disperso o incompleto. Ayúdame a organizarlo en semanas con:
+- Número de semana
+- Tema o título central
+- Lecturas o recursos de esa semana
+- Actividad principal
+
+Aquí está el contenido: [pega lo que tengas]</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">02</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Carga el programa en NotebookLM</div>
+        <p class="guia-step-desc">NotebookLM es un asistente de Google que lee tus documentos y responde preguntas sobre ellos —sin inventar nada—. Entra a notebooklm.google.com, crea un cuaderno nuevo, sube tu programa como fuente y pídele que genere un resumen organizado semana a semana. Ese texto es la base que usarás en el paso siguiente.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">NotebookLM</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Por qué</span><span>NotebookLM solo responde con lo que está en tus fuentes, así que el resumen no se inventa contenido. Es el paso ideal para limpiar y estructurar material disperso antes de pasarlo a Gemini.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Genera un resumen semana a semana del programa del curso que adjunto. Para cada semana incluye:
+- Número de semana y tema central
+- Lecturas y recursos clave
+- Actividades o tareas
+
+Usa encabezados separados por semana. Sé conciso pero completo.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">03</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Pídele a Gemini que estructure los datos</div>
+        <p class="guia-step-desc">Entra a gemini.google.com. Pega el resumen del paso anterior junto con el prompt de abajo. Gemini transforma el texto en una lista ordenada (un "JSON") en el formato exacto que necesita el dashboard. Cuando termine, revisa que todas las semanas estén incluidas y que no falte ninguna lectura.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">Gemini</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Qué es un JSON</span><span>Es solo una forma ordenada de listar información, con llaves y comillas. No necesitas entenderlo ni editarlo a mano: la IA lo escribe y lo lee por ti. Tú solo verificas que el contenido sea correcto.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Tengo el programa de mi materia [nombre] organizado en [N] semanas. A continuación te paso el contenido.
+
+Tu tarea es transformarlo en un array JSON con esta estructura exacta por semana:
+{ num, titulo, estado, objetivo, items: [ { tipo, titulo, autor, desc, tags, estado } ] }
+
+- tipo puede ser: "lectura", "actividad" o "video"
+- estado puede ser: "listo", "proceso" o "pendiente"
+- tags son entre 2 y 4 palabras clave relevantes
+- autor incluye la fuente o dónde conseguir el material
+
+Devuelve solo el JSON, sin texto adicional. Aquí está el programa: [pega el contenido]</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">04</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Pídele a Gemini que genere tu dashboard</div>
+        <p class="guia-step-desc">En la misma conversación de Gemini, pega el prompt de abajo seguido de los datos del paso anterior. Gemini genera un archivo HTML completo con todo tu curso incluido. Cópialo a un archivo de texto, guárdalo con extensión <code>.html</code> y ábrelo con doble clic — ya es tu dashboard funcionando en el navegador.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">Gemini</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Cómo guardarlo</span><span>Abre el Bloc de notas (o TextEdit en Mac), pega el código que dio Gemini, y guarda el archivo con un nombre que termine en .html — por ejemplo <code>mi-curso.html</code>. Al hacer doble clic se abre en tu navegador.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt de generación</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Quiero un dashboard de curso en un solo archivo HTML, sin dependencias externas (todo el CSS y JavaScript debe ir dentro del mismo archivo, para poder compartirlo como un link).
+
+Genera un dashboard para el curso "[nombre del curso]" en [institución], de [N] semanas.
+
+Usa este JSON como datos: [pega el JSON del paso anterior]
+
+Requisitos de diseño:
+- Una pestaña de "Semanas" con tarjetas desplegables por semana
+- Una pestaña de "Lecturas" que liste todas las lecturas
+- Tipografía serif para títulos, sans-serif para etiquetas
+- Color principal: [tu código hex, ej. #2E86C1]
+- Limpio, legible, sin imágenes externas
+
+Devuelve el archivo HTML completo.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt para ajustar algo después</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">En el dashboard que acabas de generar, necesito hacer los siguientes cambios:
+
+[describe qué semana y qué cambiar, por ejemplo:]
+- Semana 3: agrega una actividad llamada "X" con la descripción "Y"
+- Semana 5: cambia el estado de la lectura "Z" de pendiente a listo
+- Semana 7: corrige el autor del video
+
+Devuelve el archivo HTML completo con los cambios aplicados.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">05</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Ajusta los colores y el nombre</div>
+        <p class="guia-step-desc">Vuelve a Gemini con el archivo generado. El prompt de abajo le indica exactamente qué cambiar: el nombre de tu curso, la institución y el color principal. No necesitas tocar el código — Gemini hace los cambios y te devuelve el archivo listo.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">Gemini</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Consejo</span><span>Pide un solo cambio a la vez si quieres revisar con calma. Y guarda una copia del archivo que ya funciona antes de pedir cambios grandes, por si quieres volver atrás.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">En el archivo HTML del dashboard que te adjunto, necesito estos cambios:
+
+1. El título del encabezado debe decir: [nombre de tu curso]
+2. El subtítulo: [tu institución] · [año]
+3. El color principal — búscalo donde dice --agua o el color hex principal en el CSS — cámbialo a: [tu código de color, ej. #2E86C1]
+
+No cambies nada más. Devuelve el archivo HTML completo con los cambios aplicados.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">06</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Publica y comparte</div>
+        <p class="guia-step-desc">Sube el archivo a Google Drive. Ábrelo, haz clic en el menú de los tres puntos y elige <strong>Publicar en la web</strong>. Copia el link que aparece y compártelo como cualquier otro recurso del curso — no necesitas servidor ni conocimientos técnicos. También puedes simplemente enviar el archivo <code>.html</code> por correo: quien lo reciba lo abre con doble clic.</p>
+        <div class="guia-step-chips"><span class="guia-step-chip">Google Drive</span></div>
+        <div class="guia-tip"><span class="guia-tip-label">Alternativas</span><span>Sin Drive también funciona: súbelo a GitHub Pages, a Netlify Drop (arrastras el archivo y listo), o compártelo por correo. Como es un solo archivo sin dependencias, se abre en cualquier dispositivo.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt si algo no funciona</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Publiqué mi dashboard pero [describe el problema, por ejemplo: "el archivo abre pero no se ven los estilos" / "los acentos aparecen como símbolos raros" / "el link no abre el dashboard"].
+
+¿Qué puede estar causando esto y cómo lo soluciono? El archivo es un HTML de una sola página, sin servidor ni base de datos.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PERSONALIZACIÓN -->
+<div class="guia-section guia-section--light">
+  <span class="guia-section-tag">Hazlo tuyo</span>
+  <h3 class="guia-section-heading">Personaliza tu dashboard</h3>
+  <p class="guia-section-lead">Una vez que tienes la versión básica funcionando, puedes pedirle a Gemini cualquier cambio en lenguaje normal. Estos son los más útiles — copia el prompt, ajústalo y pégalo junto con tu archivo.</p>
+  <div class="guia-steps">
+
+    <div class="guia-step">
+      <div class="guia-step-num">A</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Agrega nuevas pestañas o secciones</div>
+        <p class="guia-step-desc">Más allá de semanas y lecturas, puedes añadir secciones como videos, herramientas, una bibliografía completa o una visión del curso.</p>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">En el dashboard que te adjunto, agrega una nueva pestaña llamada "[nombre]" en la barra de navegación. Dentro debe mostrar [describe el contenido: una lista de herramientas con su link, una galería de videos, etc.].
+
+Mantén el mismo estilo visual del resto del dashboard. Devuelve el archivo HTML completo.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">B</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Cambia la paleta de colores completa</div>
+        <p class="guia-step-desc">Si quieres alinear el dashboard con la identidad de tu institución o programa, dale los colores y la IA los aplica de forma consistente.</p>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Cambia la paleta de colores del dashboard que te adjunto. Quiero:
+- Color principal (acentos, números, links): [hex]
+- Color secundario: [hex]
+- Fondo general: [hex]
+- Texto: [hex]
+
+Aplícalos de forma consistente en todo el archivo y asegúrate de que el texto siga siendo legible sobre cada fondo. Devuelve el HTML completo.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">C</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Pon tu logo sin romper la portabilidad</div>
+        <p class="guia-step-desc">Para que el archivo siga siendo uno solo y sin dependencias, el logo debe ir incrustado dentro del HTML (en base64), no como un archivo aparte.</p>
+        <div class="guia-tip"><span class="guia-tip-label">Importante</span><span>Si insertas el logo como <code>&lt;img src="logo.png"&gt;</code>, el dashboard dejará de mostrarlo al compartirlo. Pídele a la IA que lo incruste en base64 para mantener todo en un solo archivo.</span></div>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Quiero poner el logo de mi institución en el encabezado del dashboard. Te paso la imagen.
+
+Incrústala directamente en el HTML como base64 (data URI), NO como un archivo externo, para que el dashboard siga siendo un solo archivo portable que se pueda compartir sin perder el logo.
+
+Devuelve el HTML completo con el logo incrustado en el encabezado.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia-step">
+      <div class="guia-step-num">D</div>
+      <div class="guia-step-body">
+        <div class="guia-step-title">Añade filtros y buscador</div>
+        <p class="guia-step-desc">Si tu curso tiene muchas semanas o lecturas, un buscador y filtros por estado (listo / pendiente) ayudan a navegar.</p>
+        <button class="step-prompt-toggle" onclick="toggleStepPrompt(this)"><span class="spt-arrow">▸</span> Ver prompt</button>
+        <div class="step-prompt-body">
+          <div class="step-prompt-text">Agrega al dashboard que te adjunto:
+- Un campo de búsqueda que filtre semanas y lecturas por texto
+- Botones de filtro por estado: todos / listo / en proceso / pendiente
+
+Que funcionen sin recargar la página y sin librerías externas (solo JavaScript dentro del archivo). Devuelve el HTML completo.</div>
+          <button class="copy-btn" onclick="copyGuiaPrompt(this)"><span class="copy-icon">⎘</span> Copiar prompt</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SOLUCIÓN DE PROBLEMAS -->
+<div class="guia-section guia-section--1">
+  <span class="guia-section-tag">Solución de problemas</span>
+  <h3 class="guia-section-heading">Preguntas frecuentes</h3>
+  <p class="guia-section-lead">Lo que suele salir mal la primera vez, y cómo resolverlo en un par de minutos.</p>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Abro el archivo pero se ve sin estilos, como texto plano</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">Casi siempre es porque el archivo se guardó como <code>.txt</code> en lugar de <code>.html</code>, o porque solo copiaste una parte del código. Asegúrate de copiar TODO lo que dio Gemini (desde <code>&lt;!DOCTYPE html&gt;</code> hasta <code>&lt;/html&gt;</code>) y de que el nombre del archivo termine en <code>.html</code>.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Los acentos y la ñ aparecen como símbolos raros</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">Es un problema de codificación. Verifica que el archivo tenga <code>&lt;meta charset="UTF-8"&gt;</code> en la parte de arriba (casi siempre ya viene). Si lo guardaste con el Bloc de notas, al guardar elige la codificación "UTF-8". O pídele a Gemini: "los acentos se ven mal, corrige la codificación a UTF-8".</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Gemini cortó el código a la mitad</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">Cuando el archivo es largo, a veces la respuesta se interrumpe. Escribe simplemente "continúa" y Gemini sigue desde donde se quedó; luego une las dos partes. También ayuda pedir: "dame el archivo en bloques que pueda copiar completos".</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">¿Necesito pagar algo?</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">No. Gemini, NotebookLM y Google Drive tienen versiones gratuitas suficientes para esto. El dashboard final es un archivo estático: no consume nada al abrirse ni al compartirse.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">¿Cómo actualizo el dashboard cuando cambie mi curso?</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">Vuelve a Gemini con tu archivo y describe el cambio en lenguaje normal ("en la semana 4 agrega esta lectura", "marca como lista la actividad de la semana 2"). Gemini te devuelve el archivo actualizado. Vuelve a subirlo a Drive sobrescribiendo el anterior y el link sigue siendo el mismo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">¿Puedo usar Claude o ChatGPT en lugar de Gemini?</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">Sí. Los mismos prompts funcionan en Claude o ChatGPT. La única ventaja de Gemini es que se integra con NotebookLM y Drive dentro del ecosistema de Google, pero cualquier asistente que genere HTML sirve.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">¿Mis estudiantes pueden editar el dashboard?</span>
+        <span class="faq-arrow">▸</span>
+      </div>
+      <div class="faq-a">No. Al publicarlo o compartir el link, solo pueden verlo. Es de consulta, no editable — perfecto para que naveguen las semanas y recursos sin riesgo de que algo se modifique.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CIERRE / COMPARTIR -->
+<div class="guia-section guia-section--3">
+  <span class="guia-section-tag">Para terminar</span>
+  <h3 class="guia-section-heading">Comparte tu dashboard</h3>
+  <p class="guia-section-lead">Como es un solo archivo sin dependencias, tienes varias formas de hacerlo llegar a tus estudiantes y colegas.</p>
+  <div class="share-cards">
+    <div class="share-card">
+      <div class="share-card-num">01</div>
+      <div class="share-card-title">Como link</div>
+      <div class="share-card-desc">Publica en Drive o Netlify Drop y comparte la URL en el aula virtual, el syllabus o un correo.</div>
+    </div>
+    <div class="share-card">
+      <div class="share-card-num">02</div>
+      <div class="share-card-title">Como archivo</div>
+      <div class="share-card-desc">Envía el <code>.html</code> por correo o mensajería. Se abre con doble clic, sin instalar nada.</div>
+    </div>
+    <div class="share-card">
+      <div class="share-card-num">03</div>
+      <div class="share-card-title">Sin conexión</div>
+      <div class="share-card-desc">Funciona offline una vez descargado. Útil para clases sin internet estable.</div>
+    </div>
+  </div>
+</div>
+
+<footer>Diversa · Guía de Replicación · <abbr title="Creative Commons: Atribución (BY), No Comercial (NC), Sin Derivadas (ND)">CC BY-NC-ND 4.0</abbr></footer>
+
+<script>
+function copyGuiaPrompt(btn) {
+  const container = btn.closest('.step-prompt-body');
+  const text = container.querySelector('.step-prompt-text').textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.innerHTML = '<span class="copy-icon">✓</span> Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<span class="copy-icon">⎘</span> Copiar prompt';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function toggleStepPrompt(btn) {
+  const body = btn.nextElementSibling;
+  const open = !body.classList.contains('visible');
+  body.classList.toggle('visible', open);
+  btn.classList.toggle('open', open);
+  btn.querySelector('.spt-arrow').textContent = open ? '▾' : '▸';
+}
+
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  item.classList.toggle('open');
+  item.querySelector('.faq-arrow').textContent = item.classList.contains('open') ? '▾' : '▸';
+}
+</script>
+</body>
+</html>
