@@ -14,7 +14,7 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ## License
 
-This project is open to collaboration within the DiversaStudio organization.
+This project is open to collaboration within the Diversa organization.
 
 ---
 
